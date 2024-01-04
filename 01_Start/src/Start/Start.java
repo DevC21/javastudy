@@ -19,6 +19,5 @@ public class Start {
 		System.out.println(1); // println() : 출력 후 줄 바꿈까지 해준다.
 		System.out.print(2);   // print() : 출력만 한다.
 		System.out.printf("%d", 3); // printf() : 포맷 문자를 기반으로 출력한다.
-		
 	}
 }
