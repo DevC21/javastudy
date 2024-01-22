@@ -31,6 +31,11 @@ public class Company {
     if(employee == null) {
       throw new RuntimeException("고용될 사원 정보가 올바르지 않습니다.");
     }
+    
+    if(employees.contains(employee)) {
+    	throw new RuntimeException(employee.getEmpNo() + "번은 중복됩니다.");
+    }
+    
     employees.add(employee);
   }
   
@@ -43,26 +48,30 @@ public class Company {
       if(employees.get(i).getEmpNo() == empNo) {
       	employees.remove(i);
       	System.out.println(empNo + "번 사원이 해고 되었습니다.");
+      	return;
       }
     }
+    System.out.println("해고할 사원이 없습니다.");
   }
   
   // 조회
   public void search(int empNo) {
-    if(employees.get(empNo) == null) {
-      throw new RuntimeException("조회할 사원 번호가 올바르지 않습니다.");
+    if(employees.isEmpty()) {
+      throw new RuntimeException("사원 명단이 비어있습니다.");
     }
     for(int i = 0; i < employees.size(); i++) {
       if(employees.get(i).getEmpNo() == empNo) {
         employees.get(i).info();
+        return;
       }
     }
+    System.out.println("조회할 사원이 없습니다.");
   }
   
   // 전체 조회
   public void searchAll() throws RuntimeException {
     if(employees.isEmpty()) {
-      throw new RuntimeException("조회할 사원이 없습니다.");
+      throw new RuntimeException("사원 명단이 비어있습니다.");
     }
     System.out.println("전체 사원 명단");
     System.out.println("-------------");

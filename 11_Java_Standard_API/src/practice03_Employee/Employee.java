@@ -20,7 +20,8 @@ public class Employee {
   public int getEmpNo() {
     return empNo;
   }
-  public void setEmpNo(int empNo) {
+
+	public void setEmpNo(int empNo) {
     this.empNo = empNo;
   }
   public String getName() {
@@ -34,4 +35,11 @@ public class Employee {
     System.out.println("사원명 : " + name);
   }
   
+	public boolean equals(Object emp) {
+		if(this == emp)
+				return true;
+		if(emp == null)
+			return false;
+		return this.empNo == ((Employee) emp).getEmpNo();
+	}
 }
