@@ -1,31 +1,44 @@
-package db.main;
+package db.app;
 
-import java.util.List;
+import javax.swing.JOptionPane;
 
-import db.dao.UserDao;
-import db.dto.UserDto;
+import db.ctrl.UserController;
+import db.view.DeleteView;
+import db.view.DetailView;
+import db.view.EditView;
+import db.view.ListView;
+import db.view.RegisterView;
+import db.view.View;
 
-public class MainClass {
+// UserApp 동작 흐름
+/*
+ * UserAppi 
+ * 
+ */
+
+public class UserApp {
 
 	public static void main(String[] args) {
 		
-		UserDao userDao = UserDao.getInstance();
+		UserController userController = new UserController();
 		
-		UserDto userDto = new UserDto(1, "테스트이름", "테스트연락처", null);
-		int result = userDao.saveUser(userDto);
-		System.out.println(result + " 행이 삽입되었습니다.");
-		
-		userDto = userDao.getUser(3);
-		System.out.println(userDto + "\n");
-		
-		List<UserDto> list = userDao.getUsers();
-		for(UserDto user : list) {
-			System.out.println(user);
+		while(true) {
+      String choice = JOptionPane.showInputDialog("1.전체명단\n2.상세조회\n3.등록\n4.편집\n5.삭제\n0.종료\n원하는 작업 번호를 입력하세요.");
+			View view = null;
+			switch(choice) {
+  		case "1": view = new ListView(); break;
+  		case "2": view = new DetailView(); break;
+  		case "3": view = new RegisterView(); break;
+  		case "4": view = new EditView(); break;
+  		case "5": view = new DeleteView(); break;
+  		case "0": JOptionPane.showMessageDialog(null, "사용자 앱을 종료합니다."); return;
+			default: JOptionPane.showMessageDialog(null, "잘못된 입력입니다. 다시 선택하세요.");
+			}
+			if(view != null) {
+				String message = userController.requestHandle(choice, view.display());
+				JOptionPane.showMessageDialog(null, message);
+			}
 		}
-		  
-		System.out.println(userDao.modifyUser(userDto) + " 행이 수정되었습니다.");
-		System.out.println(userDao.removeUser(5) + " 행이 삭제되었습니다.");
-		
 	}
 
 }
